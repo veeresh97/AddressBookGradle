@@ -42,7 +42,7 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter you last name");
         String lastName = obj.next();
         obj.nextLine();
-        System.out.println("Enter you Address name");
+        System.out.println("Enter you Address");
         String address = obj.nextLine();
         System.out.println("Enter you zip ");
         int zip = obj.nextInt();
@@ -54,7 +54,7 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter you phone number");
         long phoneNumber = obj.nextLong();
         obj.nextLine();
-        System.out.println("Enter you email name");
+        System.out.println("Enter you email");
         String email = obj.nextLine();
         if (equals(firstName))
             addAddressBook(bookName, firstName, lastName, address, city, zip, state, phoneNumber, email);
@@ -156,7 +156,7 @@ public class AddressBookMain implements MultipleAddressBook {
     // This method helps user to choose action
     public boolean makechoice() {
         System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
-                " 6:person_by_city_or_state or 0 to quit");
+                " 6:person_by_city_or_state 7:get_count_of_person or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -178,6 +178,9 @@ public class AddressBookMain implements MultipleAddressBook {
             case 6:
                 getContactByCityOrState();
                 break;
+            case 7:
+                getCountOfPersons();
+                break;
             case 0:
                 conditon = false;
                 break;
@@ -185,6 +188,10 @@ public class AddressBookMain implements MultipleAddressBook {
                 System.out.println("invalid input");
         }
         return conditon;
+    }
+
+    private void getCountOfPersons() {
+        System.out.println("total count is " + count);
     }
 
     public void viewPersonByCity() {
