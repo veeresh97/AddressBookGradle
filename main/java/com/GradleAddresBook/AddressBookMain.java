@@ -42,7 +42,7 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter you last name");
         String lastName = obj.next();
         obj.nextLine();
-        System.out.println("Enter you Address");
+        System.out.println("Enter you Address name");
         String address = obj.nextLine();
         System.out.println("Enter you zip ");
         int zip = obj.nextInt();
@@ -54,7 +54,7 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter you phone number");
         long phoneNumber = obj.nextLong();
         obj.nextLine();
-        System.out.println("Enter you email");
+        System.out.println("Enter you email name");
         String email = obj.nextLine();
         if (equals(firstName))
             addAddressBook(bookName, firstName, lastName, address, city, zip, state, phoneNumber, email);
@@ -78,7 +78,7 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("enter your name");
         String name = obj.next();
         for (AddressBook details : option) {
-            if (details.FirstName.equals(name)) {
+            if (details.firstName.equals(name)) {
                 boolean conditon = true;
                 while (conditon) {
                     System.out.println("enter number  1:first_name 2:last_name 3:address 4:City 5:zip 6:state 7:phone_number" +
@@ -88,50 +88,50 @@ public class AddressBookMain implements MultipleAddressBook {
                         case 1:
                             System.out.println("Enter you first name");
                             String firstname = obj.next();
-                            details.FirstName = firstname;
+                            details.firstName = firstname;
                             System.out.println(book);
                             break;
                         case 2:
                             System.out.println("Enter you last name");
                             String lastname = obj.next();
-                            details.FirstName = lastname;
+                            details.firstName = lastname;
                             System.out.println(book);
                             break;
                         case 3:
                             System.out.println("Enter you address ");
                             String addressname = obj.next();
-                            details.Address = addressname;
+                            details.address = addressname;
                             System.out.println(book);
                             break;
                         case 4:
                             System.out.println("Enter you City name");
                             String cityname = obj.next();
-                            details.City = cityname;
+                            details.city = cityname;
                             System.out.println(book);
                             break;
                         case 5:
                             System.out.println("Enter you Zip name");
                             int zipname = obj.nextInt();
-                            details.Zip = zipname;
+                            details.zip = zipname;
                             System.out.println(book);
                             break;
                         case 6:
                             System.out.println("Enter you State name");
                             String statename = obj.next();
-                            details.State = statename;
+                            details.state = statename;
                             System.out.println(book);
                             break;
                         case 7:
                             System.out.println("Enter you Phone number");
                             long phonenumber = obj.nextLong();
                             obj.nextLine();
-                            details.PhoneNumber = phonenumber;
+                            details.phoneNumber = phonenumber;
                             System.out.println(book);
                             break;
                         case 8:
                             System.out.println("Enter you email");
                             String emailname = obj.next();
-                            details.Email = emailname;
+                            details.email = emailname;
                             System.out.println(book);
                             break;
                         case 0:
@@ -154,9 +154,9 @@ public class AddressBookMain implements MultipleAddressBook {
     }
 
     // This method helps user to choose action
-    public boolean makechoice() {
+    public boolean makeChoice() {
         System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
-                " 6:person_by_city_or_state 7:get_count_of_person or 0 to quit");
+                " 6:person_by_city_or_state 7:get_count_of_person 8:sort or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -181,6 +181,9 @@ public class AddressBookMain implements MultipleAddressBook {
             case 7:
                 getCountOfPersons();
                 break;
+            case 8:
+                sortAlphabetically();
+                break;
             case 0:
                 conditon = false;
                 break;
@@ -198,8 +201,8 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter city");
         String location = obj.next();
         obj.nextLine();
-        List check = city.get(location);
-        if (check != null)
+        List exit = city.get(location);
+        if (exit != null)
             System.out.println(city.get(location));
         else
             System.out.println("no records found");
@@ -209,8 +212,8 @@ public class AddressBookMain implements MultipleAddressBook {
         System.out.println("Enter state");
         String location = obj.next();
         obj.nextLine();
-        List check = state.get(location);
-        if (check != null)
+        List exit = state.get(location);
+        if (exit != null)
             System.out.println(state.get(location));
         else
             System.out.println("no records found");
@@ -230,12 +233,16 @@ public class AddressBookMain implements MultipleAddressBook {
             System.out.println("no records found");
     }
 
+    public void sortAlphabetically() {
+        book.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+    }
+
     public static void main(String[] args) {
         MultipleAddressBook bookBuilder = new AddressBookMain();
-        bookBuilder.makechoice();
+        bookBuilder.makeChoice();
         boolean conditon = true;
         while (conditon) {
-            boolean condition = bookBuilder.makechoice();
+            boolean condition = bookBuilder.makeChoice();
             if (condition == false)
                 break;
         }
