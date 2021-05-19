@@ -5,6 +5,7 @@ import java.util.*;
 public class AddressBookMain implements MultipleAddressBook {
     public Map<String, AddressBook> contact;
     public Map<String, AddressBook> book;
+    Scanner obj = new Scanner(System.in);
 
     // Constructor
     public AddressBookMain() {
@@ -22,11 +23,11 @@ public class AddressBookMain implements MultipleAddressBook {
     //This method takes console arguments
     @Override
     public void getContact() {
-        Scanner obj = new Scanner(System.in);
         System.out.println("Enter Address Book Name");
         String BookName = obj.next();
         System.out.println("Enter you first name");
         String FirstName = obj.next();
+
         System.out.println("Enter you last name");
         String LastName = obj.next();
         obj.nextLine();
@@ -44,13 +45,23 @@ public class AddressBookMain implements MultipleAddressBook {
         obj.nextLine();
         System.out.println("Enter you email name");
         String Email = obj.nextLine();
-        addAddressBook(BookName, FirstName, LastName, Address, City, Zip, State, PhoneNumber, Email);
+        AddressBook details = contact.get(FirstName);
+        if (equals(FirstName))
+            addAddressBook(BookName, FirstName, LastName, Address, City, Zip, State, PhoneNumber, Email);
+        else
+            System.out.println("the Name already exist in contact please use different name");
+    }
+
+    @Override
+    public boolean equals(String firstName ){
+        AddressBook details = contact.get(firstName);
+        if (details == null) return true;
+        return false;
     }
 
     // This method helps to edit the details
     @Override
     public void editContact() {
-        Scanner obj = new Scanner(System.in);
         System.out.println("enter your name");
         String name = obj.next();
         AddressBook option = contact.get(name);
@@ -107,7 +118,6 @@ public class AddressBookMain implements MultipleAddressBook {
     // This method helps to delete the contact details
     @Override
     public void deleteEntry() {
-        Scanner obj = new Scanner(System.in);
         System.out.println("enter your name to delete from contact");
         String name = obj.next();
         contact.remove(name);
