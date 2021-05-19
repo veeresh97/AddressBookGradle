@@ -5,10 +5,6 @@ interface MultipleAddressBook {
     public void addAddressBook(String BookName, String FirstName, String LastName, String Address, String City,
                                int Zip, String State, long PhoneNumber, String Email);
 
-//    public void getAddressBookByName();
-
-//    public void getContactByName();
-
     public void getContact();
 
     boolean equals(String firstName);

@@ -164,10 +164,10 @@ public class AddressBookMain implements MultipleAddressBook {
                 getContact();
                 break;
             case 2:
-//                viewPersonByCity();
+                viewPersonByCity();
                 break;
             case 3:
-//                viewPersonByState();
+                viewPersonByState();
                 break;
             case 4:
                 editContact();
@@ -185,6 +185,28 @@ public class AddressBookMain implements MultipleAddressBook {
                 System.out.println("invalid input");
         }
         return conditon;
+    }
+
+    public void viewPersonByCity() {
+        System.out.println("Enter city");
+        String location = obj.next();
+        obj.nextLine();
+        List check = city.get(location);
+        if (check != null)
+            System.out.println(city.get(location));
+        else
+            System.out.println("no records found");
+    }
+
+    public void viewPersonByState() {
+        System.out.println("Enter state");
+        String location = obj.next();
+        obj.nextLine();
+        List check = state.get(location);
+        if (check != null)
+            System.out.println(state.get(location));
+        else
+            System.out.println("no records found");
     }
 
     public void getContactByCityOrState() {
