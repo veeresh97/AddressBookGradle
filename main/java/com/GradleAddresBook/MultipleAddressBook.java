@@ -1,24 +1,25 @@
 package com.GradleAddresBook;
 
 interface MultipleAddressBook {
-public void addAddressBook(String BookName, String FirstName, String LastName, String Address, String City,
-        int Zip, String State, long PhoneNumber, String Email);
 
-public void getAddressBookByName();
+    public void addAddressBook(String BookName, String FirstName, String LastName, String Address, String City,
+                               int Zip, String State, long PhoneNumber, String Email);
 
-public void getContactByName();
+//    public void getAddressBookByName();
 
-public void getContact();
+//    public void getContactByName();
 
-        boolean equals(String firstName);
+    public void getContact();
 
-public void editContact();
+    boolean equals(String firstName);
 
-public void deleteEntry();
+    public void editContact();
 
-public boolean makechoice();
+    public void deleteEntry();
 
-        }
+    public boolean makechoice();
+
+}
 
 class AddressBook {
     public String BookName;
@@ -31,6 +32,7 @@ class AddressBook {
     public long PhoneNumber;
     public String Email;
 
+
     public AddressBook(String BookName, String FirstName, String LastName, String Address, String City, int Zip,
                        String State, long PhoneNumber, String Email) {
         this.BookName = BookName;
@@ -42,6 +44,10 @@ class AddressBook {
         this.State = State;
         this.PhoneNumber = PhoneNumber;
         this.Email = Email;
+    }
+
+    public AddressBook(){
+
     }
 
     @Override

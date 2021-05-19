@@ -3,114 +3,144 @@ package com.GradleAddresBook;
 import java.util.*;
 
 public class AddressBookMain implements MultipleAddressBook {
-    public Map<String, AddressBook> contact;
     public Map<String, AddressBook> book;
+    public Map<String, ArrayList<AddressBook>> multibook;
+    public Map<String, ArrayList<AddressBook>> city;
+    public Map<String, ArrayList<AddressBook>> state;
+    public ArrayList<AddressBook> entries;
+    public int count = 0;
     Scanner obj = new Scanner(System.in);
 
     // Constructor
     public AddressBookMain() {
-        contact = new HashMap<>();
         book = new HashMap<>();
+        multibook = new HashMap<>();
+        city = new HashMap<>();
+        state = new HashMap<>();
+        entries = new ArrayList<>();
     }
 
     @Override
-    public void addAddressBook(String BookName, String FirstName, String LastName, String Address, String City, int Zip, String State, long PhoneNumber, String Email) {
-        AddressBook adder = new AddressBook(BookName, FirstName, LastName, Address, City, Zip, State, PhoneNumber, Email);
-        contact.put(FirstName, adder);
-        book.put(BookName, adder);
+    public void addAddressBook(String bookName, String firstName, String lastName, String address, String city, int zip,
+                               String state, long phoneNumber, String email) {
+        AddressBook adder = new AddressBook(bookName, firstName, lastName, address, city, zip, state, phoneNumber, email);
+        entries.add(adder);
+        book.put(firstName, adder);
+        multibook.put(bookName, entries);
+        this.city.put(city, entries);
+        this.state.put(state, entries);
+        count++;
     }
 
     //This method takes console arguments
     @Override
     public void getContact() {
         System.out.println("Enter Address Book Name");
-        String BookName = obj.next();
+        String bookName = obj.next();
         System.out.println("Enter you first name");
-        String FirstName = obj.next();
-
+        String firstName = obj.next();
         System.out.println("Enter you last name");
-        String LastName = obj.next();
+        String lastName = obj.next();
         obj.nextLine();
         System.out.println("Enter you Address name");
-        String Address = obj.nextLine();
+        String address = obj.nextLine();
         System.out.println("Enter you zip ");
-        int Zip = obj.nextInt();
+        int zip = obj.nextInt();
         System.out.println("Enter you city name");
-        String City = obj.next();
+        String city = obj.next();
         System.out.println("Enter you state name");
-        String State = obj.next();
+        String state = obj.next();
         obj.nextLine();
         System.out.println("Enter you phone number");
-        long PhoneNumber = obj.nextLong();
+        long phoneNumber = obj.nextLong();
         obj.nextLine();
         System.out.println("Enter you email name");
-        String Email = obj.nextLine();
-        AddressBook details = contact.get(FirstName);
-        if (equals(FirstName))
-            addAddressBook(BookName, FirstName, LastName, Address, City, Zip, State, PhoneNumber, Email);
+        String email = obj.nextLine();
+        if (equals(firstName))
+            addAddressBook(bookName, firstName, lastName, address, city, zip, state, phoneNumber, email);
         else
             System.out.println("the Name already exist in contact please use different name");
     }
 
     @Override
-    public boolean equals(String firstName ){
-        AddressBook details = contact.get(firstName);
+    public boolean equals(String firstName) {
+        AddressBook details = book.get(firstName);
         if (details == null) return true;
         return false;
     }
 
-    // This method helps to edit the details
+    //    This method helps to edit the details
     @Override
     public void editContact() {
+        System.out.println("enter your book name");
+        String bookname = obj.next();
+        ArrayList<AddressBook> option = multibook.get(bookname);
         System.out.println("enter your name");
         String name = obj.next();
-        AddressBook option = contact.get(name);
-        boolean conditon = true;
-        while (conditon) {
-            System.out.println("enter number to edit 0-firstname 1-lastname 2-address 3-zip 4-city 5-state 6-phonenumber 7-email" +
-                    " 9 to quit");
-            int check = obj.nextInt();
-            switch (check) {
-                case 0:
-                    System.out.println("Enter you first name");
-                    option.FirstName = obj.next();
-                    break;
-                case 1:
-                    System.out.println("Enter you last name");
-                    option.LastName = obj.next();
-                    obj.nextLine();
-                    break;
-                case 2:
-                    System.out.println("Enter you Address name");
-                    option.Address = obj.nextLine();
-                    break;
-                case 3:
-                    System.out.println("Enter you zip ");
-                    option.Zip = obj.nextInt();
-                    break;
-                case 4:
-                    System.out.println("Enter you city name");
-                    option.City = obj.next();
-                    break;
-                case 5:
-                    System.out.println("Enter you state name");
-                    option.State = obj.next();
-                    obj.nextLine();
-                    break;
-                case 6:
-                    System.out.println("Enter you phone number");
-                    option.PhoneNumber = obj.nextLong();
-                    obj.nextLine();
-                    break;
-                case 7:
-                    System.out.println("Enter you email name");
-                    option.Email = obj.next();
-                    break;
-                case 9:
-                    conditon = false;
-                    break;
-                default:
-                    System.out.println("invalid input");
+        for (AddressBook details : option) {
+            if (details.FirstName.equals(name)) {
+                boolean conditon = true;
+                while (conditon) {
+                    System.out.println("enter number  1:first_name 2:last_name 3:address 4:City 5:zip 6:state 7:phone_number" +
+                            " 8:email  0:quit");
+                    int check = obj.nextInt();
+                    switch (check) {
+                        case 1:
+                            System.out.println("Enter you first name");
+                            String firstname = obj.next();
+                            details.FirstName = firstname;
+                            System.out.println(book);
+                            break;
+                        case 2:
+                            System.out.println("Enter you last name");
+                            String lastname = obj.next();
+                            details.FirstName = lastname;
+                            System.out.println(book);
+                            break;
+                        case 3:
+                            System.out.println("Enter you address ");
+                            String addressname = obj.next();
+                            details.Address = addressname;
+                            System.out.println(book);
+                            break;
+                        case 4:
+                            System.out.println("Enter you City name");
+                            String cityname = obj.next();
+                            details.City = cityname;
+                            System.out.println(book);
+                            break;
+                        case 5:
+                            System.out.println("Enter you Zip name");
+                            int zipname = obj.nextInt();
+                            details.Zip = zipname;
+                            System.out.println(book);
+                            break;
+                        case 6:
+                            System.out.println("Enter you State name");
+                            String statename = obj.next();
+                            details.State = statename;
+                            System.out.println(book);
+                            break;
+                        case 7:
+                            System.out.println("Enter you Phone number");
+                            long phonenumber = obj.nextLong();
+                            obj.nextLine();
+                            details.PhoneNumber = phonenumber;
+                            System.out.println(book);
+                            break;
+                        case 8:
+                            System.out.println("Enter you email");
+                            String emailname = obj.next();
+                            details.Email = emailname;
+                            System.out.println(book);
+                            break;
+                        case 0:
+                            conditon = false;
+                            break;
+                        default:
+                            System.out.println("invalid input");
+                    }
+                }
             }
         }
     }
@@ -120,13 +150,13 @@ public class AddressBookMain implements MultipleAddressBook {
     public void deleteEntry() {
         System.out.println("enter your name to delete from contact");
         String name = obj.next();
-        contact.remove(name);
+        book.remove(name);
     }
 
     // This method helps user to choose action
     public boolean makechoice() {
-        Scanner obj = new Scanner(System.in);
-        System.out.println("enter 1 - add contact 2 -display contact 3-display address book 4 - edit 5 - delete entry or 0 to quit");
+        System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
+                " 6:person_by_city_or_state or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -134,16 +164,19 @@ public class AddressBookMain implements MultipleAddressBook {
                 getContact();
                 break;
             case 2:
-                getContactByName();
+//                viewPersonByCity();
                 break;
             case 3:
-                getAddressBookByName();
+//                viewPersonByState();
                 break;
             case 4:
                 editContact();
                 break;
             case 5:
                 deleteEntry();
+                break;
+            case 6:
+                getContactByCityOrState();
                 break;
             case 0:
                 conditon = false;
@@ -154,22 +187,18 @@ public class AddressBookMain implements MultipleAddressBook {
         return conditon;
     }
 
-    // This method helps to find contact details by first name
-    public void getContactByName() {
-        Scanner obj = new Scanner(System.in);
-        System.out.println("Enter Name to search");
-        String firstName = obj.nextLine();
-        AddressBook details = contact.get(firstName);
-        System.out.println(details);
-    }
-
-    // This method helps to find address book details by book name
-    public void getAddressBookByName() {
-        Scanner obj = new Scanner(System.in);
-        System.out.println("Enter Address Book Name to search");
-        String bookName = obj.nextLine();
-        AddressBook details = book.get(bookName);
-        System.out.println(details);
+    public void getContactByCityOrState() {
+        System.out.println("Enter city or state");
+        String location = obj.next();
+        obj.nextLine();
+        List check1 = state.get(location);
+        List check2 = city.get(location);
+        if (check1 != null)
+            System.out.println(state.get(location));
+        else if (check2 != null)
+            System.out.println(city.get(location));
+        else
+            System.out.println("no records found");
     }
 
     public static void main(String[] args) {
