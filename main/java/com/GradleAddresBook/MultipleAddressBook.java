@@ -14,6 +14,7 @@ interface MultipleAddressBook {
     public void deleteEntry();
 
     public boolean makeChoice();
+
 }
 
 class AddressBook {
@@ -40,7 +41,7 @@ class AddressBook {
         this.email = email;
     }
 
-    public AddressBook(){
+    public AddressBook() {
     }
 
     @Override

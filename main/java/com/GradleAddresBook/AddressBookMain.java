@@ -1,12 +1,14 @@
 package com.GradleAddresBook;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookMain implements MultipleAddressBook {
     public Map<String, AddressBook> book;
     public Map<String, ArrayList<AddressBook>> multibook;
     public Map<String, ArrayList<AddressBook>> city;
     public Map<String, ArrayList<AddressBook>> state;
+    public Map<Integer, ArrayList<AddressBook>> zip;
     public ArrayList<AddressBook> entries;
     public int count = 0;
     Scanner obj = new Scanner(System.in);
@@ -17,8 +19,10 @@ public class AddressBookMain implements MultipleAddressBook {
         multibook = new HashMap<>();
         city = new HashMap<>();
         state = new HashMap<>();
+        zip = new HashMap<>();
         entries = new ArrayList<>();
     }
+
 
     @Override
     public void addAddressBook(String bookName, String firstName, String lastName, String address, String city, int zip,
@@ -29,6 +33,7 @@ public class AddressBookMain implements MultipleAddressBook {
         multibook.put(bookName, entries);
         this.city.put(city, entries);
         this.state.put(state, entries);
+        this.zip.put(zip, entries);
         count++;
     }
 
@@ -110,7 +115,7 @@ public class AddressBookMain implements MultipleAddressBook {
                             System.out.println(book);
                             break;
                         case 5:
-                            System.out.println("Enter you Zip name");
+                            System.out.println("Enter you Zip");
                             int zipname = obj.nextInt();
                             details.zip = zipname;
                             System.out.println(book);
@@ -156,7 +161,7 @@ public class AddressBookMain implements MultipleAddressBook {
     // This method helps user to choose action
     public boolean makeChoice() {
         System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
-                " 6:person_by_city_or_state 7:get_count_of_person 8:sort or 0 to quit");
+                " 6:person_by_city_or_state 7:get_count_of_person 8:sort_alphabetically 9:sort_viaCityStateZip or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -183,6 +188,9 @@ public class AddressBookMain implements MultipleAddressBook {
                 break;
             case 8:
                 sortAlphabetically();
+                break;
+            case 9:
+                sortCityStateOrZip();
                 break;
             case 0:
                 conditon = false;
@@ -235,6 +243,22 @@ public class AddressBookMain implements MultipleAddressBook {
 
     public void sortAlphabetically() {
         book.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+    }
+
+    public void sortCityStateOrZip() {
+        System.out.println("sort by 1:city 2:state 3:zip");
+        int check = obj.nextInt();
+        switch (check) {
+            case 1:
+                city.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+                break;
+            case 2:
+                state.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+                break;
+            case 3:
+                zip.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+                break;
+        }
     }
 
     public static void main(String[] args) {
