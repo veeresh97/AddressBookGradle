@@ -271,4 +271,17 @@ public class AddressBookMain implements MultipleAddressBook {
                 break;
         }
     }
+    public void toPrint(HashMap<String,AddressBook> contactsBook) {
+        contactsBook.forEach((String,Contacts)-> System.out.println(String + " " + Contacts) );
+    }
+
+    public void writeAddressBook() {
+        new AddressBookFileIOService().write(entries);
+    }
+
+    public void readAddressBook() {
+        entries = (ArrayList<AddressBook>) new AddressBookFileIOService().readData();
+    }
+
+
 }
