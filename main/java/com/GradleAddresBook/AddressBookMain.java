@@ -1,13 +1,10 @@
 package com.GradleAddresBook;
 
-import java.util.*;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class AddressBookMain implements MultipleAddressBook {
     public Map<String, AddressBook> book;
@@ -167,7 +164,7 @@ public class AddressBookMain implements MultipleAddressBook {
     // This method helps user to choose action
     public boolean makeChoice() {
         System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
-                " 6:person_by_city_or_state 7:get_count_of_person 8:sort_alphabetically 9:sort_viaCityStateZip 10: print to fileIO 11:write to FileIO 12:writeCSV file 13:readCSV file or 0 to quit");
+                " 6:person_by_city_or_state 7:get_count_of_person 8:sort_alphabetically 9:sort_viaCityStateZip 10: print to fileIO 11:write to FileIO 12:writeCSV file 13:readCSV file 14:writeJson 15:readJson or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -221,6 +218,12 @@ public class AddressBookMain implements MultipleAddressBook {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                break;
+            case 14:
+                new Json().writeJson(entries);
+                break;
+            case 15:
+                new Json().readJson();
                 break;
             case 0:
                 conditon = false;
