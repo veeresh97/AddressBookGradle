@@ -1,7 +1,13 @@
 package com.GradleAddresBook;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class AddressBookMain implements MultipleAddressBook {
     public Map<String, AddressBook> book;
@@ -161,7 +167,7 @@ public class AddressBookMain implements MultipleAddressBook {
     // This method helps user to choose action
     public boolean makeChoice() {
         System.out.println("enter 1:add_contact 2:view_by_city 3-view_by_state 4:edit_contact 5:delete_contact" +
-                " 6:person_by_city_or_state 7:get_count_of_person 8:sort_alphabetically 9:sort_viaCityStateZip or 0 to quit");
+                " 6:person_by_city_or_state 7:get_count_of_person 8:sort_alphabetically 9:sort_viaCityStateZip 10: print to fileIO 11:write to FileIO 12:writeCSV file 13:readCSV file or 0 to quit");
         int check = obj.nextInt();
         boolean conditon = true;
         switch (check) {
@@ -191,6 +197,30 @@ public class AddressBookMain implements MultipleAddressBook {
                 break;
             case 9:
                 sortCityStateOrZip();
+                break;
+            case 10:
+                readAddressBook();
+                break;
+            case 11:
+                writeAddressBook();
+                break;
+            case 12:
+                try {
+                    new OpenCSV().writeCSV(entries);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (CsvDataTypeMismatchException e) {
+                    e.printStackTrace();
+                } catch (CsvRequiredFieldEmptyException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case 13:
+                try {
+                    new OpenCSV().readCSV();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case 0:
                 conditon = false;
@@ -260,6 +290,17 @@ public class AddressBookMain implements MultipleAddressBook {
                 break;
         }
     }
+    public void toPrint(HashMap<String, AddressBook> contactsBook) {
+        contactsBook.forEach((String, Contacts) -> System.out.println(String + " " + Contacts));
+    }
+
+    public void writeAddressBook() {
+        new AddressBookFileIOService().write(entries);
+    }
+
+    public void readAddressBook() {
+        entries = (ArrayList<AddressBook>) new AddressBookFileIOService().readData();
+    }
 
     public static void main(String[] args) {
         MultipleAddressBook bookBuilder = new AddressBookMain();
@@ -271,17 +312,4 @@ public class AddressBookMain implements MultipleAddressBook {
                 break;
         }
     }
-    public void toPrint(HashMap<String,AddressBook> contactsBook) {
-        contactsBook.forEach((String,Contacts)-> System.out.println(String + " " + Contacts) );
-    }
-
-    public void writeAddressBook() {
-        new AddressBookFileIOService().write(entries);
-    }
-
-    public void readAddressBook() {
-        entries = (ArrayList<AddressBook>) new AddressBookFileIOService().readData();
-    }
-
-
 }
